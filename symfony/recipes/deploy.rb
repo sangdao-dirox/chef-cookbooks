@@ -6,10 +6,16 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-package 'nginx' do
-  action :install
+%w{nginx php5-fpm php-pdo php-pgsql php-intl php-pecl-apcu php-mbstring php-opcache}.each do |p|
+    package p do
+        action :install
+    end
 end
 
+user "nginx" do
+  home "/home/nginx"
+  shell "/bin/bash"
+end
 
 require 'securerandom'
 
