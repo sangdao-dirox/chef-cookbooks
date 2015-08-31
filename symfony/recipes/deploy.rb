@@ -54,6 +54,13 @@ node[:deploy].each do |application, deploy|
     #    user "root"
     #end
 
+    directory "/etc/nginx/sites-available" do
+      mode 0755
+      owner 'root'
+      group 'root'
+      action :create
+    end
+
     # Nginx Configuration
     template "/etc/nginx/sites-available/#{application}.conf" do
         source "nginx_conf.erb"
