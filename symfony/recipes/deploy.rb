@@ -7,10 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "composer"
-
-#require 'securerandom'
-
 node[:deploy].each do |application, deploy|
 
     # Setup SSH key for checkouts
