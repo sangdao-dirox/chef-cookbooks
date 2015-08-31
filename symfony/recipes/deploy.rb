@@ -12,13 +12,13 @@ require 'securerandom'
 node[:deploy].each do |application, deploy|
 
     # Setup SSH key for checkouts
-    prepare_git_checkouts(
-        :user => deploy[:user],
-        :group => deploy[:group],
-        :home => deploy[:home],
-        :ssh_key => deploy[:scm][:ssh_key]
-    )
-    Chef::Log.info(deploy.to_s)
+    #prepare_git_checkouts(
+    #    :user => deploy[:user],
+    #    :group => deploy[:group],
+    #    :home => deploy[:home],
+    #    :ssh_key => deploy[:scm][:ssh_key]
+    #)
+    #Chef::Log.info(deploy.to_s)
     
     # Deploy code
     deploy "/srv/www/#{application}" do
@@ -95,12 +95,12 @@ node[:deploy].each do |application, deploy|
         user "nginx"
         group "nobody"
         variables({
-            :host => (deploy[:database][:host] rescue nil),
-            :user => (deploy[:database][:username] rescue nil),
-            :password => (deploy[:database][:password] rescue nil),
-            :database => (deploy[:database][:database] rescue nil),
-            :parameters => (node[:custom_env] rescue nil), 
-            :application => ("#{application}" rescue nil),
+            :host => deploy[:database][:host],
+            :user => deploy[:database][:username],
+            :password => deploy[:database][:password],
+            :database => deploy[:database][:database],
+            :parameters => node[:custom_env], 
+            :application => "#{application}",
             :secret => SecureRandom.base64 
         })
     end
