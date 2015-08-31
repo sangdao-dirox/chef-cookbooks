@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+require 'securerandom'
+
 node[:deploy].each do |application, deploy|
 
     # Setup SSH key for checkouts
