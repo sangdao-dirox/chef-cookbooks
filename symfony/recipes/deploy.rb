@@ -6,6 +6,10 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+package 'nginx' do
+  action :install
+end
+
 
 require 'securerandom'
 
