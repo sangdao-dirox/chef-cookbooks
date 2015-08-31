@@ -20,7 +20,7 @@ include_recipe 'php'
 	end
 end
 
-include_recipe 'php-fpm'
+#include_recipe 'php-fpm'
 php_fpm_pool 'www' do
 	user "nginx"
 	group "nobody"

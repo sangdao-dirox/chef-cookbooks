@@ -9,12 +9,6 @@
 
 include_recipe "composer"
 
-#service "php-fpm" do
-#  service_name "php-fpm"
-#  supports :start => true, :stop => true, :restart => true, :reload => true
-#  action [ :nothing ]
-#end
-
 #require 'securerandom'
 
 node[:deploy].each do |application, deploy|
@@ -120,11 +114,4 @@ node[:deploy].each do |application, deploy|
             group "nobody"
         end
     end
-
-#    # Remove Dev Front Controller
-#    file "#{deploy[:deploy_to]}/current/web/app_dev.php" do
-#        action :delete
-#        notifies :reload, "service[php-fpm]", :immediately
-#    end
-
 end
