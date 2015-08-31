@@ -55,7 +55,7 @@ node[:deploy].each do |application, deploy|
     #end
 
     # Nginx Configuration
-    template "/etc/nginx/conf.d/#{application}.conf" do
+    template "/etc/nginx/sites-available/#{application}.conf" do
         source "nginx_conf.erb"
         owner "root"
         group "root"
