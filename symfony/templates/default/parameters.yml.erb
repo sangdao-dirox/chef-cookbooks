@@ -1,0 +1,15 @@
+# Parameter values for application <%= @application %>
+parameters:
+    locale: en
+    secret: <%= @secret %>
+    database_host: <%= @host %>
+    database_port: 5432
+    database_name: <%= @database %>
+    database_user: root # Fix this: <%= @user %>
+    database_password: <%= @password %>
+    database_type: pgsql
+<% if @parameters.is_a?(Hash) %>
+    <% @parameters.each do | param_key, param_value | %>
+    <%= param_key %>: <%= param_value %>
+    <% end %>
+<% end %>

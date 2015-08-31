@@ -1,0 +1,10 @@
+source 'https://supermarket.getchef.com'
+
+metadata
+
+cookbook 'composer', github: 'Morphodo/chef-composer'
+cookbook 'nginx'
+cookbook 'nscd'
+cookbook 'php'
+cookbook 'php-fpm'
+cookbook 'yum'
