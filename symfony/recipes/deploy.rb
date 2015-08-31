@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-%w{nginx php5-fpm}.each do |p|
+%w{nginx php5 php5-fpm mysql-server php5-mysql }.each do |p|
     package p do
         action :install
     end
