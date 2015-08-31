@@ -49,10 +49,10 @@ node[:deploy].each do |application, deploy|
     end 
 
     # Change user
-    execute "chown_deploy_dir" do
-        command "chown -R nginx:nobody /srv/www/#{application}/current/"
-        user "root"
-    end
+    #execute "chown_deploy_dir" do
+    #    command "chown -R nginx:nobody /srv/www/#{application}/current/"
+    #    user "root"
+    #end
 
     # Nginx Configuration
     template "/etc/nginx/conf.d/#{application}.conf" do
