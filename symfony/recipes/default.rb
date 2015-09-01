@@ -59,8 +59,6 @@ node[:deploy].each do |application, deploy|
         execute "run_symfony_console_#{cmd}" do
             command "php app/console #{cmd} --env=prod"
             cwd "#{deploy[:deploy_to]}/current"
-            user "apache"
-            group "apache"
         end
     end
     #enable write mode for cache, logs
