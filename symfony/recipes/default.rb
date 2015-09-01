@@ -34,7 +34,7 @@ node[:deploy].each do |application, deploy|
             :database_port => deploy[:database][:port] || "null",
             :database_user => deploy[:database][:username] || "root",
             :database_password => deploy[:database][:password] || "evasion_pass",
-            :database_database => deploy[:database][:database] || "evasion_main",
+            :database_name => deploy[:database][:database] || "evasion_main",
             :mailer_transport => deploy[:mail][:transport] || "smtp",
             :mailer_host => deploy[:mail][:host] || "127.0.0.1",
             :mailer_user => deploy[:mail][:username] || "null",
