@@ -31,7 +31,7 @@ node[:deploy].each do |application, deploy|
         user "apache"
         group "apache"
         variables({
-            :locale => deploy[:locale] || "en"
+            :locale => deploy[:locale] || "en",
             :database_host => deploy[:database][:host] || "127.0.0.1",
             :database_port => deploy[:database][:port] || "null",
             :database_user => deploy[:database][:username] || "root",
