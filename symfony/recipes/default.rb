@@ -28,8 +28,6 @@ node[:deploy].each do |application, deploy|
     template "#{deploy[:deploy_to]}/current/app/config/parameters.yml" do
         source "parameters.yml.erb"
         mode 0644
-        user "apache"
-        group "apache"
         variables({
             :locale => deploy[:locale] || "en",
             :database_host => deploy[:database][:host] || "127.0.0.1",
