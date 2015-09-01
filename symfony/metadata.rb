@@ -1,5 +1,3 @@
-name             'symfony'
-version          '0.1.0'
+name "git"
+version "0.1.0"
 
-depends 'nginx'
-depends 'php'
