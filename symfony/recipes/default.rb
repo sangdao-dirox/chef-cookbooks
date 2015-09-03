@@ -39,7 +39,7 @@ node[:deploy].each do |application, deploy|
             :mailer_host => deploy[:mail][:host] || "127.0.0.1",
             :mailer_user => deploy[:mail][:username] || "null",
             :mailer_password => deploy[:mail][:password] || "null",
-            :parameters => node[:custom_env], 
+            :parameters => deploy[:custom_env], 
             :application => "#{application}",
             :secret => SecureRandom.base64 
         })
@@ -56,7 +56,7 @@ node[:deploy].each do |application, deploy|
     deploy[:post_deploy_symfony_commands].each do |cmd|
         execute "run_symfony_console_#{cmd}" do
             command "php app/console #{cmd} --env=prod"
-            cwd "#{deploy[:deploy_to]}/current"
+            cwd "#{deploy[:deploy_to]}/current" 
         end
     end
     #enable write mode for cache, logs

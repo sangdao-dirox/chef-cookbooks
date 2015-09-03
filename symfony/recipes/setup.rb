@@ -2,7 +2,7 @@
 #
 #
 
-%w{mcrypt php5-mcrypt php5-xsl mysql-server php5-mysql }.each do |p|
+%w{mcrypt php5-mcrypt php5-xsl}.each do |p|
     package p do
         action :install
     end
@@ -14,4 +14,3 @@ execute "enable php5enmod mcrypt" do
     user "root"
     group "root"
 end
-
