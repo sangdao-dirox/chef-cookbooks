@@ -39,7 +39,7 @@ node[:deploy].each do |application, deploy|
             :mailer_host => deploy[:mail][:host] || "127.0.0.1",
             :mailer_user => deploy[:mail][:username] || "null",
             :mailer_password => deploy[:mail][:password] || "null",
-            :parameters => deploy[:custom_env], 
+            :parameters => deploy[:custom_env] || [], 
             :application => "#{application}",
             :secret => SecureRandom.base64 
         })
