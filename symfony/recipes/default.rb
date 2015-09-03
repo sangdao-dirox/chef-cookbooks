@@ -61,9 +61,9 @@ node[:deploy].each do |application, deploy|
 
     ##Install assets and  dump assetic
     #
-    ["cache:clear --no-warmup", "assets:install", "assetic:dump"].each do |cmd|
-        execute "run_symfony_console_#{cmd}" do
-            command "php app/console #{cmd} --env=prod"
+    ["cache:clear --no-warmup", "assets:install", "assetic:dump"].each do |cmmd|
+        execute "run_symfony_console_#{cmmd}" do
+            command "php app/console #{cmmd} --env=prod"
             cwd "#{deploy[:deploy_to]}/current" 
         end
     end
