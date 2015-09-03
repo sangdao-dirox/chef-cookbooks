@@ -1,12 +1,8 @@
 ###Deploy
 #
-#
-
 
 node[:deploy].each do |application, deploy|
     #create bin and vendor directory
-    #
-    #
     
     Chef::Log.info("====== Deploy for app #{application} =================================================================")
     Chef::Log.info("======================================================================================================")
@@ -16,7 +12,6 @@ node[:deploy].each do |application, deploy|
     Chef::Log.info(deploy)
     Chef::Log.info("======")
     Chef::Log.info("======")
-
 
     [ "#{deploy[:deploy_to]}/current/bin", "#{deploy[:deploy_to]}/current/vendor", "#{deploy[:deploy_to]}/current/bundles", "#{deploy[:deploy_to]}/current/web/images", "#{deploy[:deploy_to]}/current/web/js", "#{deploy[:deploy_to]}/current/web/css" ].each do |path|
         directory path do
