@@ -2,11 +2,21 @@
 #
 #
 
+
 node[:deploy].each do |application, deploy|
     #create bin and vendor directory
     #
-    Chef::Log.info(application)
+    #
+    
+    Chef::Log.info("====== Deploy for app #{application} =================================================================")
+    Chef::Log.info("======================================================================================================")
+    Chef::Log.info("======================================================================================================")
+    Chef::Log.info("======")
+    Chef::Log.info("======")
     Chef::Log.info(deploy)
+    Chef::Log.info("======")
+    Chef::Log.info("======")
+
 
     [ "#{deploy[:deploy_to]}/current/bin", "#{deploy[:deploy_to]}/current/vendor", "#{deploy[:deploy_to]}/current/bundles", "#{deploy[:deploy_to]}/current/web/images", "#{deploy[:deploy_to]}/current/web/js", "#{deploy[:deploy_to]}/current/web/css" ].each do |path|
         directory path do
@@ -58,16 +68,6 @@ node[:deploy].each do |application, deploy|
         user "root"
         group "root"
     end
-
-    ##Install assets and  dump assetic
-    #
-    ["cache:clear --no-warmup", "assets:install", "assetic:dump"].each do |cmmd|
-        execute "run_symfony_console_#{cmmd}" do
-            command "php app/console #{cmmd} --env=prod"
-            cwd "#{deploy[:deploy_to]}/current" 
-        end
-    end
-
 
     # Post deploy commands
     deploy[:post_deploy_symfony_commands].each do |cmd|
