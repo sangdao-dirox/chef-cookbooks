@@ -2,7 +2,11 @@
 #
 node[:deploy].each do |application, deploy|
     #create bin and vendor directory
-    [ "#{deploy[:deploy_to]}/current/bin", "#{deploy[:deploy_to]}/current/vendor" ].each do |path|
+    #
+    Chef::Log.info(application)
+    Chef::Log.info(deploy)
+
+    [ "#{deploy[:deploy_to]}/current/bin", "#{deploy[:deploy_to]}/current/vendor", "#{deploy[:deploy_to]}/current/web/js", "#{deploy[:deploy_to]}/current/web/css" ].each do |path|
         directory path do
             mode 0755
             owner 'root'
@@ -20,7 +24,7 @@ node[:deploy].each do |application, deploy|
         cwd "#{deploy[:deploy_to]}/current"
         code <<-EOH
         curl -s https://getcomposer.org/installer | php
-        php composer.phar update
+        php composer.phar update --no-interaction
         EOH
     end
 
@@ -35,10 +39,10 @@ node[:deploy].each do |application, deploy|
             :database_user => (deploy[:database][:username] rescue nil),
             :database_password => (deploy[:database][:password] rescue nil),
             :database_name => (deploy[:database][:database] rescue nil),
-            :mailer_transport => deploy[:mail][:transport] || "smtp",
-            :mailer_host => deploy[:mail][:host] || "127.0.0.1",
-            :mailer_user => deploy[:mail][:username] || "null",
-            :mailer_password => deploy[:mail][:password] || "null",
+            :mailer_transport => (deploy[:mail][:transport] rescue nil),
+            :mailer_host => (deploy[:mail][:host] rescue nil),
+            :mailer_user => (deploy[:mail][:username] rescue nil),
+            :mailer_password => (deploy[:mail][:password] rescue nil),
             :parameters => (deploy[:custom_env] rescue nil), 
             :application => "#{application}",
             :secret => SecureRandom.base64 
@@ -52,6 +56,7 @@ node[:deploy].each do |application, deploy|
         user "root"
         group "root"
     end
+
     # Post deploy commands
     deploy[:post_deploy_symfony_commands].each do |cmd|
         execute "run_symfony_console_#{cmd}" do
@@ -59,6 +64,7 @@ node[:deploy].each do |application, deploy|
             cwd "#{deploy[:deploy_to]}/current" 
         end
     end
+    
     #enable write mode for cache, logs
     execute "run_allow_write_on_cache_and_logs" do
         command "chmod -R 0777 app/cache app/logs"
