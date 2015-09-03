@@ -30,16 +30,16 @@ node[:deploy].each do |application, deploy|
         mode 0644
         variables({
             :locale => deploy[:locale] || "en",
-            :database_host => deploy[:database][:host] || "127.0.0.1",
-            :database_port => deploy[:database][:port] || "null",
-            :database_user => deploy[:database][:username] || "root",
-            :database_password => deploy[:database][:password] || "evasion_pass",
-            :database_name => deploy[:database][:database] || "evasion_main",
+            :database_host => (deploy[:database][:host] rescue nil),
+            :database_port => (deploy[:database][:port] rescue nil),
+            :database_user => (deploy[:database][:username] rescue nil),
+            :database_password => (deploy[:database][:password] rescue nil),
+            :database_name => (deploy[:database][:database] rescue nil),
             :mailer_transport => deploy[:mail][:transport] || "smtp",
             :mailer_host => deploy[:mail][:host] || "127.0.0.1",
             :mailer_user => deploy[:mail][:username] || "null",
             :mailer_password => deploy[:mail][:password] || "null",
-            :parameters => deploy[:custom_env] || [], 
+            :parameters => (deploy[:custom_env] rescue nil), 
             :application => "#{application}",
             :secret => SecureRandom.base64 
         })
@@ -47,7 +47,7 @@ node[:deploy].each do |application, deploy|
 
     #enable write mode for cache, logs
     execute "run_allow_write_on_cache_and_logs" do
-        command "chmod -R 777 app/cache app/logs"
+        command "chmod -R 0777 app/cache app/logs"
         cwd "#{deploy[:deploy_to]}/current"
         user "root"
         group "root"
@@ -61,7 +61,7 @@ node[:deploy].each do |application, deploy|
     end
     #enable write mode for cache, logs
     execute "run_allow_write_on_cache_and_logs" do
-        command "chmod -R 777 app/cache app/logs"
+        command "chmod -R 0777 app/cache app/logs"
         cwd "#{deploy[:deploy_to]}/current"
         user "root"
         group "root"
