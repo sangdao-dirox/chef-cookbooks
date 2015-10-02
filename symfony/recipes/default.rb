@@ -22,7 +22,7 @@ node[:deploy].each do |application, deploy|
         cwd "#{deploy[:deploy_to]}/current"
         code <<-EOH
         curl -s https://getcomposer.org/installer | php
-        php composer.phar update --no-interaction
+        php composer.phar install --no-interaction
         EOH
     end
 
